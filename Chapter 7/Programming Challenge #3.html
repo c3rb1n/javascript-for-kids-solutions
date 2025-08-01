@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta
+            name="description"
+            content='"Programming Challenge #3" task from Chapter 7 of the book "javascript for kids"'
+        />
+        <title>"Programming Challenge #3" task from Chapter 7</title>
+    </head>
+    <body>
+        <h1>Виселица!</h1>
+
+        <script>
+            const words = [
+                "программа",
+                "макака",
+                "прекрасный",
+                "оладушек",
+                "строка",      //-----|
+                "число",       //     |
+                "массив",      //     |
+                "объект",      //     |
+                "оператор",    //     |
+                "инкремент",   //     | ---- Новые слова
+                "декремент",   //     |
+                "условие",     //     |
+                "цикл",        //     |
+                "переменная",  //     |
+                "данные",      //-----|
+            ];
+
+            // Выбираем случайное слово
+            const word = words[Math.floor(Math.random() * words.length)];
+
+            // Задаём длину выбранного слова
+            const wordLength = word.length;
+
+            // Создаём итоговый массив
+            const answerArray = Array.from({length: wordLength}, _ => '_');
+
+            // Задаём количество не отгаданных букв
+            let remainingLetters = wordLength;
+
+            // Задаём количество оставшихся попыток
+            let triesCounter = 5;
+
+            // Игровой цикл
+            while (remainingLetters > 0 && triesCounter > 0) {
+                // Показываем состояние игры
+                alert(answerArray.join(' '));
+
+                // Запрашиваем вариант ответа
+                const guess = prompt('Угадайте букву, или нажмите "Отмена" для выхода из игры.', '');
+
+                if (guess === null) {
+                    // Если пользователь отменил ввод - выходим из игрового цикла
+                    break;
+                } else if (guess.length !== 1) {
+                    // Если пользователь ввёл не одну букву - выводим сообщение
+                    alert('Пожалуйста, введите одиночную букву.')
+                } else {
+                    // Если буквы пользователя нет в слове
+                    if (!word.includes(guess)) {
+                        // Выводим сообщение
+                        alert("В загаданном слове нет такой буквы.");
+
+                        // Снижаем на 1 количество оставшихся попыток
+                        triesCounter--;
+
+                        // Переходим на следующую итерацию цикла
+                        continue;
+                    } else {
+                        // Если введена одна буква - обновляем состояние игры
+                        [...word].forEach((letter, index) => {
+                            // Сравниваем текущую букву с буквой-догадкой пользователя в строчном регистре
+                            if (letter === guess.toLowerCase()) {
+                                // Меняем в итоговом массиве "_" на отгаданную букву
+                                answerArray[index] = letter;
+
+                                // Снижаем на 1 количество оставшихся не отгаданных букв
+                                remainingLetters--;
+                            }
+                        });
+                    }
+                }
+
+            // Конец игрового цикла
+            }
+
+            // Отображаем ответ и поздравляем игрока
+            alert(answerArray.join(' '));
+            alert(`Отлично! Было загадано слово ${word}.`);
+        </script>
+    </body>
+</html>
