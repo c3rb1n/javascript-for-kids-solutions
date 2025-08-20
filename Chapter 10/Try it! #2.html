@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta
+            name="description"
+            content='"Try it! #2" task from Chapter 10 of the book "javascript for kids"'
+        />
+        <title>"Try it! #2" task from Chapter 10</title>
+    </head>
+    <body>
+        <h1 id="heading">Привет, мир!</h1>
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script>
+            // #1
+                /*
+                    let leftOffset = 0;
+
+                    const moveHeading = () => {
+                        $("#heading").offset({left: leftOffset});
+
+                        // Теперь, начиная со второго вызова функции,заголовок будет
+                        // смещаться вправо не на 1 пиксель, а на 2, то есть будет передвигаться быстрее в 2 раза
+                        leftOffset += 2;
+
+                        if (leftOffset > 200) {
+                            leftOffset = 0;
+                        }
+                    };
+
+                    // Функция moveHeading будет вызываться каждые 10 миллисекунд (т.е. быстрее в 3 раза)
+                    setInterval(moveHeading, 10);
+                */
+
+            // #2
+                let leftOffset = 0;
+                const speed = 2;
+
+                const moveHeading = () => {
+                    $("#heading").offset({left: leftOffset});
+
+                    // Первый вариант как удвоить (и не только, так как всё
+                    // зависит от значения в переменной speed) скорость движения заголовка
+                    leftOffset += speed;
+
+                    if (leftOffset > 200) {
+                        leftOffset = 0;
+                    }
+                };
+
+                // Второй вариант как с помощью той же
+                // переменной speed удвоить (и не только) скорость движения заголовка
+                setInterval(moveHeading, 30 / speed);
+
+                // В данных вариантах есть определённые различия:
+                // 1) Первый вариант позволяет нам задавать любое значение
+                // для смещения заголовка (хотя, в нашем случае, мы и ограничены
+                // цифрой 200 включительно, так как у нас есть специальное условие if),
+                // второй вариант ограничен вторым аргументом setInterval
+                // (максимум ему можно задать значение 0, дальше пойдут отрицательные
+                // числа, а функция не может вызываться каждое отрицательное количество
+                // миллисекунд, следовательно, задавать значения меньше 0 не имеет
+                // смысла); 2) Второй вариант более плавный по сравнению с первым.
+        </script>
+    </body>
+</html>
