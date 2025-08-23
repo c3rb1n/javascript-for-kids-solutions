@@ -36,20 +36,20 @@
             // Получить для расстояния строку подсказки
             const getDistanceHint = distance => {
                 if (distance < 10) {
-                    return "Обожжёшься!";
+                    return 'Обожжёшься!';
                 } else if (distance < 20) {
-                    return "Очень горячо.";
+                    return 'Очень горячо.';
                 } else if (distance < 40) {
-                    return "Горячо.";
+                    return 'Горячо.';
                 } else if (distance < 80) {
-                    return "Тепло.";
+                    return 'Тепло.';
                 } else if (distance < 160) {
-                    return "Холодно.";
+                    return 'Холодно.';
                 } else if (distance < 320) {
-                    return "Очень холодно.";
+                    return 'Очень холодно.';
                 }
 
-                return "Замёрзнешь!";
+                return 'Замёрзнешь!';
             };
 
             // Создаём переменные
@@ -64,7 +64,7 @@
             };
 
             // Добавляем элементу img обработчик клика
-            $("#map").click(event => {
+            $('#map').click(event => {
                 clicks++;
 
                 // Получаем расстояние от места клика до клада
@@ -74,7 +74,7 @@
                 const distanceHint = getDistanceHint(distance);
 
                 // Записываем в элемент #distance новую подсказку
-                $("#distance").text(distanceHint);
+                $('#distance').text(distanceHint);
 
                 // Если клик был достаточно близко, поздравляем с победой
                 if (distance < 8) {
