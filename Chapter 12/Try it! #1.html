@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta
+            name="description"
+            content='"Try it! #1" task from Chapter 12 of the book "javascript for kids"'
+        />
+        <title>"Try it! #1" task from Chapter 12</title>
+    </head>
+    <body>
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script>
+            const Car = function (x, y) {
+                this.x = x;
+                this.y = y;
+            };
+
+            Car.prototype.draw = function () {
+                const carHtml = '<img src="http://nostarch.com/images/car.png">';
+
+                this.carElement = $(carHtml);
+
+                this.carElement.css({
+                    position: 'absolute',
+                    left: this.x,
+                    top: this.y
+                });
+
+                $('body').append(this.carElement);
+            };
+
+            Car.prototype.moveRight = function() {
+                this.x += 5;
+
+                this.carElement.css({
+                    left: this.x,
+                    top: this.y
+                });
+            };
+
+            const tesla = new Car(20, 20);
+            const nissan = new Car(100, 200);
+
+            tesla.draw();
+            nissan.draw();
+
+            tesla.moveRight();
+            tesla.moveRight();
+            tesla.moveRight();
+
+            nissan.moveRight(); // #1 Нисколько, так как исходя из приведённого в книге кода, "nissan"
+            nissan.moveRight(); // уже догнал и даже перегнал "tesla", а для "tesla" при нынешних условиях
+            nissan.moveRight(); // метод moveRight() (tesla.moveRight();) нужно будет вызвать дополнительно 16 раз
+
+            setInterval(function() { //
+                nissan.moveRight();  // #2 код анимации "nissan"
+            }, 30);
+        </script>
+    </body>
+</html>
