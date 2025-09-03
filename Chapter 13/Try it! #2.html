@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta
+            name="description"
+            content='"Try it! #2" task from Chapter 13 of the book "javascript for kids"'
+        />
+        <title>"Try it! #2" task from Chapter 13</title>
+    </head>
+    <body>
+        <canvas id="canvas" width="200" height="200"></canvas>
+        <script>
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+            // Рисуем разноцветные прямоугольники
+
+                // Создаём первый прямоугольник
+                ctx.fillStyle = 'Navy';        // Задаём цвет прямоугольника по названию цвета на английском языке
+                ctx.fillRect(0, 0, 50, 100);   // Рисуем первый прямоугольник
+
+                // Создаём второй прямоугольник
+                ctx.fillStyle = 'Gold';        // Задаём цвет прямоугольника по названию цвета на английском языке
+                ctx.fillRect(50, 0, 50, 100);  // Рисуем второй прямоугольник
+
+                // Создаём третий прямоугольник
+                ctx.fillStyle = '#cf0921';     // Задаём цвет прямоугольника в шестнадцатеричной системе счисления (HEX)
+                ctx.fillRect(100, 0, 50, 100); // Рисуем третий прямоугольник
+        </script>
+    </body>
+</html>
