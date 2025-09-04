@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta
+            name="description"
+            content='"Try it! #3" task from Chapter 13 of the book "javascript for kids"'
+        />
+        <title>"Try it! #3" task from Chapter 13</title>
+    </head>
+    <body>
+        <canvas id="canvas" width="200" height="200"></canvas>
+        <script>
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+            // Рисуем человечка
+
+                // Начало рисования нового пути
+                ctx.beginPath();
+
+                // Задаём толщину линии
+                ctx.lineWidth = 4;
+
+                // Создаём голову
+                ctx.strokeRect(75, 10, 20, 20);
+
+                // Создаём туловище
+                ctx.moveTo(85, 30);
+                ctx.lineTo(85, 73);
+
+                // Создаём руки
+                ctx.moveTo(85, 50);    // Рисуем
+                ctx.lineTo(65, 40);    // левую руку
+
+                ctx.moveTo(85, 50);    // Рисуем
+                ctx.lineTo(105, 40);   // правую руку
+
+                // Создаём ноги
+                ctx.moveTo(85, 73);    // Рисуем
+                ctx.lineTo(65, 103);   // левую ногу
+
+                ctx.moveTo(85, 73);    // Рисуем
+                ctx.lineTo(105, 103);  // правую ногу
+
+                // Конец рисования нового пути ("проявление" рисунка на "холсте")
+                ctx.stroke();
+        </script>
+    </body>
+</html>
