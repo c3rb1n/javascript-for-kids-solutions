@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta
+            name="description"
+            content='"Programming Challenge #1" task from Chapter 13 of the book "javascript for kids"'
+        />
+        <title>"Programming Challenge #1" task from Chapter 13</title>
+    </head>
+    <body>
+        <canvas id="canvas" width="200" height="200"></canvas>
+        <script>
+            const circle = (x, y, radius, fillCircle) => {
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+
+                // Проверка истинности аргумента fillCircle
+                if (fillCircle) {
+                    // Если fillCircle истинно, то окружность будет заполнена, т.к. вызовется метод fill
+                    ctx.fill();
+                } else {
+                    // Если fillCircle ложно, то окружность будет обрисована контуром, т.к. вызовется метод stroke
+                    ctx.stroke();
+                }
+            };
+
+            // Рисуем снеговика
+            const drawSnowman = (x, y) => {
+                // Задаём ширину линий
+                ctx.lineWidth = 2;
+
+                // Задаём чёрный цвет
+                ctx.fillStyle = 'Black';
+
+                // Создаём голову снеговика
+                circle(x + 30, y + 25, 20, false);
+
+                // Создаём туловище снеговика
+                circle(x + 30, y + 70, 25, false);
+
+                // Создаём пуговицы снеговика
+                circle(x + 30, y + 58, 3, true); // Рисуем верхнюю пуговицу
+                circle(x + 30, y + 70, 3, true); // Рисуем среднюю пуговицу
+                circle(x + 30, y + 82, 3, true); // Рисуем нижнюю пуговицу
+
+                // Создаём глаза снеговика
+                circle(x + 24, y + 21, 3, true); // Рисуем левый глаз
+                circle(x + 36, y + 21, 3, true); // Рисуем правый глаз
+
+                // Создаём нос снеговика
+                ctx.fillStyle = 'Darkorange';    // Меняем цвет на Darkorange
+                circle(x + 30, y + 28, 3, true); // Рисуем нос
+            };
+
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+            // Рисуем снеговика
+            drawSnowman(50, 50);
+        </script>
+    </body>
+</html>
