@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta
+            name="description"
+            content='"Try it! #4" task from Chapter 13 of the book "javascript for kids"'
+        />
+        <title>"Try it! #4" task from Chapter 13</title>
+    </head>
+    <body>
+        <canvas id="canvas" width="200" height="200"></canvas>
+        <script>
+            const circle = (x, y, radius, fillCircle) => {
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+
+                // Проверка истинности аргумента fillCircle
+                if (fillCircle) {
+                    // Если fillCircle истинно, то окружность будет заполнена, т.к. вызовется метод fill
+                    ctx.fill();
+                } else {
+                    // Если fillCircle ложно, то окружность будет обрисована контуром, т.к. вызовется метод stroke
+                    ctx.stroke();
+                }
+            };
+
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+            // Рисуем снеговика
+
+                // Задаём ширину линий
+                ctx.lineWidth = 2;
+
+                // Создаём голову снеговика
+                circle(100, 50, 20, false);
+
+                // Создаём туловище снеговика
+                circle(100, 95, 25, false);
+
+                // Создаём пуговицы снеговика
+                circle(100, 83, 3, true);      // Рисуем верхнюю пуговицу
+                circle(100, 95, 3, true);      // Рисуем среднюю пуговицу
+                circle(100, 107, 3, true);     // Рисуем нижнюю пуговицу
+
+                // Создаём глаза снеговика
+                circle(94, 46, 3, true);       // Рисуем левый глаз
+                circle(106, 46, 3, true);      // Рисуем правый глаз
+
+                // Создаём нос снеговика
+                ctx.fillStyle = 'Darkorange';  // Меняем цвет на Darkorange
+                circle(100, 53, 3, true);      // Рисуем нос
+        </script>
+    </body>
+</html>
