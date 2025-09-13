@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta
+            name="description"
+            content='"Programming Challenge #2" task from Chapter 14 of the book "javascript for kids"'
+        />
+        <title>"Programming Challenge #2" task from Chapter 14</title>
+    </head>
+    <body>
+        <canvas id="canvas" width="500" height="300"></canvas>
+        <script>
+            const circle = function (x, y, radius, fillCircle) {
+                ctx.beginPath();
+
+                ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+
+                if (fillCircle) {
+                    ctx.fill();
+                } else {
+                    ctx.stroke();
+                }
+            };
+
+            const Ball = function() {
+                this.x = 100;
+                this.y = 100;
+                this.xSpeed = 5 - Math.floor(Math.random() * 11); // Случайное значение this.xSpeed
+                this.ySpeed = 5 - Math.floor(Math.random() * 11); // Случайное значение this.ySpeed
+            };
+
+            Ball.prototype.draw = function() {
+                circle(this.x, this.y, 3, true);
+            };
+
+            Ball.prototype.move = function() {
+                this.x += this.xSpeed;
+                this.y += this.ySpeed;
+            };
+
+            Ball.prototype.checkCollision = function() {
+                if (this.x < 0 || this.x > width) {
+                    this.xSpeed = -this.xSpeed;
+                }
+
+                if (this.y < 0 || this.y > height) {
+                    this.ySpeed = -this.ySpeed;
+                }
+            };
+
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+            const width = canvas.width;
+            const height = canvas.height;
+
+            const ball = new Ball();
+
+            setInterval(function() {
+                ctx.clearRect(0, 0, width, height);
+
+                ball.draw();
+                ball.move();
+                ball.checkCollision();
+
+                ctx.strokeRect(0, 0, width, height);
+            }, 30);
+        </script>
+    </body>
+</html>
