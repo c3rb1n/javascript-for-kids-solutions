@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta
+            name="description"
+            content='"Programming Challenge #1" task from Chapter 15 of the book "javascript for kids"'
+        />
+        <title>"Programming Challenge #1" task from Chapter 15</title>
+    </head>
+    <body>
+        <canvas id="canvas" width="400" height="400"></canvas>
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script>
+            const circle = function (x, y, radius, fillCircle) {
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+
+                if (fillCircle) {
+                    ctx.fill();
+                } else {
+                    ctx.stroke();
+                }
+            };
+
+            // функция setSize
+            const setSize = function(sizeChanger) {
+                if (sizeChanger === 'sizeIncreaser') {
+                    size++;                                       // Увеличение размера мяча на единицу
+                } else if (sizeChanger === 'sizeDecreaser') {
+                    if (size === 0) {                             // Если размер мяча равняется 0,
+                        return;                                   // происходит преждевременный выход из функции
+                    } else {                                      // Иначе происходит
+                        size--;                                   // уменьшение размера мяча на единицу
+                    }
+                }
+            };
+
+            const Ball = function() {
+                this.x = width / 2;
+                this.y = height / 2;
+                this.speed = 5;
+            };
+
+            Ball.prototype.move = function() {
+                if (startDirection === "up") {
+                    this.x += 0;
+                    this.y -= this.speed;
+                } else if (startDirection === 'down') {
+                    this.x += 0;
+                    this.y += this.speed;
+                } else if (startDirection === 'left') {
+                    this.x -= this.speed;
+                    this.y += 0;
+                } else if (startDirection === 'right') {
+                    this.x += this.speed;
+                    this.y += 0;
+                } else if (startDirection === 'stop') {
+                    this.x += 0;
+                    this.y += 0;
+                }
+
+                if (this.x < 0) {
+                    startDirection = 'right';
+                } else if (this.x > width) {
+                    startDirection = 'left';
+                } else if (this.y < 0) {
+                    startDirection = 'down';
+                } else if (this.y > height) {
+                    startDirection = 'up';
+                }
+            };
+
+            Ball.prototype.draw = function() {
+                circle(this.x, this.y, size, true);              // Указываем в качестве радиуса круга переменную size
+            };
+
+            Ball.prototype.setDirection = function(direction) {
+                if (direction === 'up') {
+                    startDirection = 'up';
+                } else if (direction === 'down') {
+                    startDirection = 'down';
+                } else if (direction === 'left') {
+                    startDirection = 'left';
+                } else if (direction === 'right') {
+                    startDirection = 'right';
+                } else if (direction === 'stop') {
+                    startDirection = 'stop';
+                }
+            };
+
+            Ball.prototype.setSpeed = function(speed) {
+                if (speed !== undefined) {
+                    this.speed = +speed;
+                }
+            };
+
+            // Метод speedChange
+            Ball.prototype.speedChange = function(speedChanger) {
+                if (speedChanger === 'speedIncreaser') {
+                    this.speed++;                                 // Увеличение скорости мяча на единицу
+                } else if (speedChanger === 'speedDecreaser') {
+                    if (this.speed === 0) {                       // Если скорость мяча равняется 0,
+                        return;                                   // происходит преждевременный выход из функции
+                    } else {                                      // Иначе происходит
+                        this.speed--;                             // уменьшение скорости мяча на единицу
+                    }
+                }
+            };
+
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+            const width = canvas.width;
+            const height = canvas.height;
+
+            const ball = new Ball();
+
+            let startDirection = 'right';
+            // Переменная size, содержащая размер мяча
+            let size = 10;
+
+            const keyActions = {
+                32: 'stop',
+                37: 'left',
+                38: 'up',
+                39: 'right',
+                40: 'down'
+            };
+
+            // Объект для перевода кодов клавиш в цифру скорости
+            const speeds = {
+                49: '1',
+                50: '2',
+                51: '3',
+                52: '4',
+                53: '5',
+                54: '6',
+                55: '7',
+                56: '8',
+                57: '9'
+            };
+
+            // Объект для перевода кодов клавиш в названия действий
+            const speedChangers = {
+                90: 'speedDecreaser', // уменьшение скорости мяча
+                88: 'speedIncreaser'  // увеличение скорости мяча
+            };
+
+            // Объект для перевода кодов клавиш в названия действий
+            const sizeChangers = {
+                67: 'sizeDecreaser',  // уменьшение размера мяча
+                86: 'sizeIncreaser',  // увеличение размера мяча
+            };
+
+            $('body').keydown(function(event) {
+                const direction = keyActions[event.keyCode];
+                const speed = speeds[event.keyCode];
+
+                // Присваиваем меняющее скорость мяча значение переменной speedChanger
+                const speedChanger = speedChangers[event.keyCode];
+
+                // Присваиваем меняющее размер мяча значение переменной sizeChanger
+                const sizeChanger = sizeChangers[event.keyCode];
+
+                ball.setDirection(direction);
+                ball.setSpeed(speed);
+
+                // Вызываем метод speedChange
+                ball.speedChange(speedChanger);
+
+                // Вызываем функцию setSize
+                setSize(sizeChanger);
+            });
+
+            setInterval(function() {
+                ctx.clearRect(0, 0, width, height);
+                ball.draw();
+                ball.move();
+                ctx.strokeRect(0, 0, width, height);
+            }, 30);
+
+            // Если скорость станет отрицательной, случится ошибка, при которой
+            // меняется направление движения, стрелки также начинают задавать неверное
+            // направление движения (Например, стрелка вниз заставляет мяч двигаться вверх)
+
+            // Если размер станет отрицательным, в консоли
+            // разработчика возникнет куча ошибок, а также пропадёт рамка
+        </script>
+    </body>
+</html>
