@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta
+            name="description"
+            content='"Programming Challenge #1" task from Chapter 16 of the book "javascript for kids"'
+        />
+        <title>"Programming Challenge #1" task from Chapter 16</title>
+    </head>
+    <body>
+        <canvas id="canvas" width="400" height="400"></canvas>
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script>
+            // Код для рисования рамки
+            const drawBorder = function() {
+                ctx.fillStyle = 'Gray';
+                ctx.fillRect(0, 0, width, blockSize);
+                ctx.fillRect(0, height - blockSize, width, blockSize);
+                ctx.fillRect(0, 0, blockSize, height);
+                ctx.fillRect(width - blockSize, 0, blockSize, height);
+            };
+
+            // Код для отображения счёта
+            const drawScore = function() {
+                ctx.font = '20px Courier';
+                ctx.fillStyle = 'Black';
+                ctx.textAlign = 'left';
+                ctx.textBaseline = 'top';
+                ctx.fillText(`Счёт: ${score}`, blockSize, blockSize);
+            };
+
+            const gameOver = function() {
+                // Комментируем строку clearInterval(intervalId), чтобы не было ошибки
+                // clearInterval(intervalId);
+
+                ctx.font = '60px Courier';
+                ctx.fillStyle = 'Black';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('Конец игры', width / 2, height / 2);
+            };
+
+            // Код для нстройки "холста"
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+
+            const blockSize = 10;
+            const widthInBlocks = width / blockSize;
+            const heightInBlocks = height / blockSize;
+
+            // Код для создания переменной score
+            const score = 0;
+
+            // Вызов функции drawBorder
+            drawBorder();
+
+            // Вызов функции drawScore
+            drawScore();
+
+            // Вызов функции gameOver
+            gameOver();
+        </script>
+    </body>
+</html>
