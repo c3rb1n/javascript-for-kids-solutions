@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta
+            name="description"
+            content='"Programming Challenge #3" task from Chapter 16 of the book "javascript for kids"'
+        />
+        <title>"Programming Challenge #3" task from Chapter 16</title>
+    </head>
+    <body>
+        <canvas id="canvas" width="500" height="500"></canvas>
+        <script>
+            const pickWord = () => {
+                const words = [
+                    'программа',
+                    'макака',
+                    'прекрасный',
+                    'оладушек',
+                    'строка',
+                    'число',
+                    'массив',
+                    'объект',
+                    'оператор',
+                    'инкремент',
+                    'декремент',
+                    'условие',
+                    'цикл',
+                    'переменная',
+                    'данные',
+                ];
+
+                return words[Math.floor(Math.random() * words.length)];
+            };
+
+            const setupAnswerArray = word => {
+                const answerArray = [];
+
+                for (let i = 0; i < word.length; i++) {
+                    answerArray[i] = "_";
+
+                    // Создаём нижнее подчёркивание для каждой буквы
+                    ctx.beginPath();
+                    ctx.moveTo(80 + 40 * i, 420);
+                    ctx.lineTo(110 + 40 * i, 420);
+                    ctx.stroke();
+                }
+
+                return answerArray;
+            };
+
+            const showPlayerProgress = answerArray => alert(answerArray.join(' '));
+
+            const getGuess = () => prompt('Угадайте букву, или нажмите Отмена для выхода из игры.');
+
+            const updateGameState = (guess, word, answerArray) => {
+                let correctGuessesCounter = 0;
+
+                guess = guess.toLowerCase();
+
+                for (let j = 0; j < word.length; j++) {
+                    if (word[j] === guess && answerArray[j] === '_') {
+                        answerArray[j] = guess;
+                        correctGuessesCounter++;
+
+                        drawCorrectLetter(guess, j);
+                    } else if (word[j] === guess && answerArray[j] !== '_') {
+                        alert('Вы уже отгадали эту букву.');
+                        break;
+                    } else if (j === word.length - 1 && correctGuessesCounter === 0) {
+                        alert('В загаданном слове нет такой буквы.');
+                        triesCounter--;
+
+                        drawHangman(triesCounter);
+                        drawIncorrectLetter(guess, triesCounter);
+                    }
+                }
+
+                return correctGuessesCounter;
+            };
+
+            const showAnswerAndCongratulatePlayer = answerArray => {
+                alert(answerArray.join(' '));
+                alert(`Отлично! Было загадано слово ${word}.`);
+            };
+
+            const drawHangman = triesCounter => {
+                ctx.lineWidth = 3;
+
+                ctx.beginPath();
+
+                if (triesCounter === 5) {
+                    ctx.strokeRect(250, 250, 20, 20);
+                } else if (triesCounter === 4) {
+                    ctx.moveTo(260, 270);
+                    ctx.lineTo(260, 320);
+                } else if (triesCounter === 3) {
+                    ctx.moveTo(260, 285);
+                    ctx.lineTo(235, 275);
+                } else if (triesCounter === 2) {
+                    ctx.moveTo(260, 285);
+                    ctx.lineTo(285, 275);
+                } else if (triesCounter === 1) {
+                    ctx.moveTo(260, 320);
+                    ctx.lineTo(240, 355);
+                } else if (triesCounter === 0) {
+                    ctx.moveTo(260, 320);
+                    ctx.lineTo(280, 355);
+                }
+
+                ctx.stroke();
+            }
+
+            // Функция, отрисовывающая угаданные буквы
+            const drawCorrectLetter = (guess, index) => {
+                // Задаём шрифт угаданной буквы
+                ctx.font = '48px Courier';
+
+                // Отображаем угаданную букву
+                ctx.fillText(guess, 80 + 40 * index, 405);
+            };
+
+            // Функция, отображающая неправильные ответы
+            const drawIncorrectLetter = (guess, triesCounter) => {
+                ctx.font = '48px Courier';
+
+                if (triesCounter > 2) {
+                    ctx.fillText(guess, 80, 275 + incorrectLetterPositionIndex);
+
+                    ctx.beginPath();
+                    ctx.moveTo(80, 268 + incorrectLetterPositionIndex);
+                    ctx.lineTo(110, 268 + incorrectLetterPositionIndex);
+                    ctx.stroke();
+
+                    incorrectLetterPositionIndex += 40;
+                } else {
+                    if (triesCounter === 2) {
+                        incorrectLetterPositionIndex = 0;
+                    }
+
+                    ctx.fillText(guess, 160, 275 + incorrectLetterPositionIndex);
+
+                    ctx.beginPath();
+                    ctx.moveTo(160, 268 + incorrectLetterPositionIndex);
+                    ctx.lineTo(190, 268 + incorrectLetterPositionIndex);
+                    ctx.stroke();
+
+                    incorrectLetterPositionIndex += 40;
+                }
+            };
+
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+            const word = pickWord();
+            const answerArray = setupAnswerArray(word);
+            let remainingLetters = word.length;
+            let triesCounter = 6;
+            let incorrectLetterPositionIndex = 0;
+
+            while (remainingLetters > 0 && triesCounter > 0) {
+                showPlayerProgress(answerArray);
+
+                const guess = getGuess();
+
+                if (guess === null) {
+                    break;
+                } else if (guess.length !== 1) {
+                    alert('Пожалуйста, введите одиночную букву.');
+                } else {
+                    const correctGuesses = updateGameState(guess, word, answerArray);
+                    remainingLetters -= correctGuesses;
+                }
+            }
+
+            showAnswerAndCongratulatePlayer(answerArray);
+        </script>
+    </body>
+</html>
