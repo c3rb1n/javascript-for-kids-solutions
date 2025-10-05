@@ -30,7 +30,7 @@
                 let diffX = event.offsetX - target.x;
                 let diffY = event.offsetY - target.y;
 
-                return Math.sqrt((diffX * diffX) + (diffY * diffY));
+                return Math.sqrt(diffX ** 2 + diffY ** 2);
             };
 
             // Получить для расстояния строку подсказки
