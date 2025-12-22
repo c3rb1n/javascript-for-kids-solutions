@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <meta name="description" content='"Try it! #2" task from Chapter 6 of the book "javascript for kids"'/>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content='"Try it! #2" task from Chapter 6 of the book "javascript for kids"' />
         <title>"Try it! #2" task from Chapter 6</title>
     </head>
     <body>
         <script>
             // for
-            for (let i = 3; i < 10000; i *= 3) {
-                console.log(i); // 3, 9, 27, 81, 243, 729, 2187, 6561
+            for (let index = 3; index < 10000; index *= 3) {
+                console.log(index); // 3, 9, 27, 81, 243, 729, 2187, 6561
             }
 
             // while
-            let k = 3;
+            let indexJ = 3;
 
-            while (k < 10000) {
-                console.log(k); // 3, 9, 27, 81, 243, 729, 2187, 6561
+            while (indexJ < 10000) {
+                console.log(indexJ); // 3, 9, 27, 81, 243, 729, 2187, 6561
 
-                k *= 3;
+                indexJ *= 3;
             }
 
             // do...while
-            let j = 3;
+            let index = 3;
 
             do {
-                console.log(j); // 3, 9, 27, 81, 243, 729, 2187, 6561
+                console.log(index); // 3, 9, 27, 81, 243, 729, 2187, 6561
 
-                j *= 3;
-            } while (j < 10000);
+                index *= 3;
+            } while (index < 10000);
         </script>
     </body>
 </html>
