@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
             name="description"
             content='"Programming Challenge #3" task from Chapter 8 of the book "javascript for kids"'
@@ -14,114 +14,73 @@
 
         <script>
             const words = [
-                "программа",
-                "макака",
-                "прекрасный",
-                "оладушек",
-                "строка",
-                "число",
-                "массив",
-                "объект",
-                "оператор",
-                "инкремент",
-                "декремент",
-                "условие",
-                "цикл",
-                "переменная",
-                "данные",
+                'программа',
+                'макака',
+                'прекрасный',
+                'оладушек',
+                'строка',
+                'число',
+                'массив',
+                'объект',
+                'оператор',
+                'инкремент',
+                'декремент',
+                'условие',
+                'цикл',
+                'переменная',
+                'данные'
             ];
 
-            // Возвращает случайно выбранное слово
             const pickWord = () => words[Math.floor(Math.random() * words.length)];
-
-            // Возвращает итоговый массив для заданного слова word
-            const setupAnswerArray = arrayLength => Array.from({length: arrayLength}, _ => '_');
-
-            // С помощью alert отображает текущее состояние игры
+            const setupAnswerArray = arrayLength => Array.from({length: arrayLength}, () => '_');
             const showPlayerProgress = answerArray => alert(answerArray.join(' '));
-
-            // Запрашивает ответ игрока с помощью prompt
             const getGuess = () => prompt('Угадайте букву, или нажмите "Отмена" для выхода из игры.', '');
 
-            // Обновляет answerArray согласно ответу игрока (guess)
             const updateGameState = (guess, word, answerArray) => {
-                // Если введена одна буква - обновляем состояние игры
-                [...word].forEach((letter, index) => {
-                    /*
-                        Сравниваем текущую букву с буквой-догадкой пользователя в строчном регистре
-                        и проверяем, что буква всё ещё не отгадана
-                    */
+                for (const [index, letter] of [...word].entries()) {
                     if (letter === guess.toLowerCase() && answerArray[index] === '_') {
-                        // Меняем в итоговом массиве "_" на отгаданную букву
                         answerArray[index] = letter;
                     }
-                });
+                }
             };
 
-            // Обновляет количество оставшихся не отгаданных букв
             const updateRemainingLetters = answerArray => {
-                remainingLetters = answerArray.filter(el => el === '_').length;
+                remainingLetters = answerArray.filter(element => element === '_').length;
             };
 
-            // Отображает с помощью alert ответ и поздравляет игрока
             const showAnswerAndCongratulatePlayer = answerArray => {
                 alert(answerArray.join(' '));
                 alert(`Отлично! Было загадано слово ${word}.`);
             };
 
-            // word: загаданное слово
             const word = pickWord();
-
-            // wordLength: длина загаданного слова
             const wordLength = word.length;
-
-            // answerArray: итоговый массив
             const answerArray = setupAnswerArray(wordLength);
-
-            // remainingLetters: сколько букв осталось угадать
             let remainingLetters = wordLength;
-
-            // Задаём количество оставшихся попыток
             let triesCounter = 5;
 
-            // Игровой цикл
             while (remainingLetters > 0 && triesCounter > 0) {
-                // Показываем состояние игры
                 showPlayerProgress(answerArray);
 
-                // guess: ответ игрока
                 const guess = getGuess();
 
                 if (guess === null) {
-                    // Если пользователь отменил ввод - выходим из игрового цикла
                     break;
-                } else if (guess.length !== 1) {
-                    // Если пользователь ввёл не одну букву - выводим сообщение
-                    alert('Пожалуйста, введите одиночную букву.')
-                } else {
-                    // Если буквы пользователя нет в слове
-                    if (!word.includes(guess)) {
-                        // Выводим сообщение
-                        alert("В загаданном слове нет такой буквы.");
-
-                        // Снижаем на 1 количество оставшихся попыток
-                        triesCounter--;
-
-                        // Переходим на следующую итерацию цикла
-                        continue;
-                    } else {
-                        // Обновляем состояние игры
+                } else if (guess.length === 1) {
+                    if (word.includes(guess)) {
                         updateGameState(guess, word, answerArray);
-
-                        // Обновляем количество оставшихся не отгаданных букв
                         updateRemainingLetters(answerArray);
-                    }
-                }
+                    } else {
+                        alert('В загаданном слове нет такой буквы.');
 
-            // Конец игрового цикла
+                        triesCounter--;
+                        continue;
+                    }
+                } else {
+                    alert('Пожалуйста, введите одиночную букву.');
+                }
             }
 
-            // Отображаем ответ и поздравляем игрока
             showAnswerAndCongratulatePlayer(answerArray);
         </script>
     </body>
