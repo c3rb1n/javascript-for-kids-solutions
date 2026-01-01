@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
             name="description"
             content='"Programming Challenge #2" task from Chapter 9 of the book "javascript for kids"'
@@ -13,21 +13,20 @@
         <h1>Привет, мир!</h1>
         <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
         <script>
-            // #1
             $('h1').fadeOut(500).fadeIn(500);
             $('h1').fadeOut(500).fadeIn(500);
             $('h1').fadeOut(500).fadeIn(500);
             $('h1').fadeOut(500).fadeIn(500);
             $('h1').fadeOut(500).fadeIn(500);
 
-            // #2
             for (let i = 0; i < 5; i++) {
-                $("h1").fadeOut(500).fadeIn(500);
+                $('h1').fadeOut(500).fadeIn(500);
             }
 
-            // #3
             for (let i = 1; i <= 5; i++) {
-                $("h1").fadeOut(500 * i).fadeIn(500 * i);
+                $('h1')
+                    .fadeOut(500 * i)
+                    .fadeIn(500 * i);
             }
         </script>
     </body>
