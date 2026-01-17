@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
             name="description"
             content='"Programming Challenge #2" task from Chapter 12 of the book "javascript for kids"'
@@ -12,71 +12,67 @@
     <body>
         <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
         <script>
-            const Car = function (x, y) {
-                this.x = x;
-                this.y = y;
-                this.speed = 5; // свойство speed
-                this.draw();
-            };
+            class Car {
+                constructor(x, y) {
+                    this.x = x;
+                    this.y = y;
+                    this.speed = 5;
+                    this.draw();
+                }
 
-            Car.prototype.draw = function () {
-                const carHtml = '<img src="http://nostarch.com/images/car.png">';
+                draw() {
+                    const carHtml = '<img src="http://nostarch.com/images/car.png">';
 
-                this.carElement = $(carHtml);
+                    this.carElement = $(carHtml);
 
-                this.carElement.css({
-                    position: 'absolute',
-                    left: this.x,
-                    top: this.y
-                });
+                    this.carElement.css({
+                        position: 'absolute',
+                        left: this.x,
+                        top: this.y
+                    });
 
-                $('body').append(this.carElement);
-            };
+                    $('body').append(this.carElement);
+                }
 
-            Car.prototype.moveRight = function() {
-                this.x += this.speed; // использование свойства speed для перемещения вправо
+                moveRight() {
+                    this.x += this.speed;
 
-                this.carElement.css({
-                    left: this.x,
-                    top: this.y
-                });
-            };
+                    this.carElement.css({
+                        left: this.x,
+                        top: this.y
+                    });
+                }
 
-            Car.prototype.moveLeft = function() {
-                this.x -= this.speed; // использование свойства speed для перемещения влево
+                moveLeft() {
+                    this.x -= this.speed;
 
-                this.carElement.css({
-                    left: this.x,
-                    top: this.y
-                });
-            };
+                    this.carElement.css({
+                        left: this.x,
+                        top: this.y
+                    });
+                }
 
-            Car.prototype.moveUp = function() {
-                this.y -= this.speed; // использование свойства speed для перемещения вверх
+                moveUp() {
+                    this.y -= this.speed;
 
-                this.carElement.css({
-                    left: this.x,
-                    top: this.y
-                });
-            };
+                    this.carElement.css({
+                        left: this.x,
+                        top: this.y
+                    });
+                }
 
-            Car.prototype.moveDown = function() {
-                this.y += this.speed; // использование свойства speed для перемещения вниз
+                moveDown() {
+                    this.y += this.speed;
 
-                this.carElement.css({
-                    left: this.x,
-                    top: this.y
-                });
-            };
+                    this.carElement.css({
+                        left: this.x,
+                        top: this.y
+                    });
+                }
+            }
 
             const tesla = new Car(20, 20);
             const nissan = new Car(100, 200);
-
-            /*
-                setInterval(function() { // Раскомментируйте метод setInterval, поизменяйте значение свойства
-                    nissan.moveRight();  // speed в конструкторе Car и попробуйте в методе setInterval "nissan"
-                }, 30);                  // заменить на "tesla", чтобы проверить, как работает свойство speed
-            */
         </script>
     </body>
 </html>
