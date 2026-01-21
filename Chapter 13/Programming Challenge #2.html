@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
             name="description"
             content='"Programming Challenge #2" task from Chapter 13 of the book "javascript for kids"'
@@ -12,30 +12,38 @@
     <body>
         <canvas id="canvas" width="200" height="200"></canvas>
         <script>
+            const canvas = document.querySelector('#canvas');
+            const context = canvas.getContext('2d');
+
             const drawPoints = points => {
+                context.beginPath();
+                context.moveTo(points[0][0], points[0][1]);
 
-                // Начало рисования нового пути
-                ctx.beginPath();
+                for (let index = 1; index < points.length; index++) {
+                    context.lineTo(points[index][0], points[index][1]);
+                }
 
-                // Передвижение в начальную точку
-                ctx.moveTo(points[0][0], points[0][1]);
-
-                for (let i = 1; i < points.length; i++) {   // Цикл, рисующий
-                    ctx.lineTo(points[i][0], points[i][1]); // линии по координатам
-                }                                           // из массива с координатами точек
-
-                // Конец рисования нового пути ("проявление" рисунка на "холсте")
-                ctx.stroke();
+                context.stroke();
             };
 
-            const canvas = document.getElementById('canvas');
-            const ctx = canvas.getContext('2d');
+            const points = [
+                [50, 50],
+                [50, 100],
+                [100, 100],
+                [100, 50],
+                [50, 50]
+            ];
+            const mysteryPoints = [
+                [50, 50],
+                [50, 100],
+                [25, 120],
+                [100, 50],
+                [70, 90],
+                [100, 90],
+                [70, 120]
+            ];
 
-            const points = [[50, 50], [50, 100], [100, 100], [100, 50], [50, 50]];
-            const mysteryPoints = [[50, 50], [50, 100], [25, 120], [100, 50], [70, 90], [100, 90], [70, 120]];
-
-            // drawPoints(points);     // Вариант работы функции drawPoints c массивом points
-            drawPoints(mysteryPoints); // Вариант работы функции drawPoints c массивом mysteryPoints
+            drawPoints(mysteryPoints);
         </script>
     </body>
 </html>
