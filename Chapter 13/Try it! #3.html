@@ -1,51 +1,39 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <meta
-            name="description"
-            content='"Try it! #3" task from Chapter 13 of the book "javascript for kids"'
-        />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content='"Try it! #3" task from Chapter 13 of the book "javascript for kids"' />
         <title>"Try it! #3" task from Chapter 13</title>
     </head>
     <body>
         <canvas id="canvas" width="200" height="200"></canvas>
         <script>
-            const canvas = document.getElementById('canvas');
-            const ctx = canvas.getContext('2d');
+            const canvas = document.querySelector('#canvas');
+            const context = canvas.getContext('2d');
 
-            // Рисуем человечка
+            context.beginPath();
 
-                // Начало рисования нового пути
-                ctx.beginPath();
+            context.lineWidth = 4;
 
-                // Задаём толщину линии
-                ctx.lineWidth = 4;
+            context.strokeRect(75, 10, 20, 20);
 
-                // Создаём голову
-                ctx.strokeRect(75, 10, 20, 20);
+            context.moveTo(85, 30);
+            context.lineTo(85, 73);
 
-                // Создаём туловище
-                ctx.moveTo(85, 30);
-                ctx.lineTo(85, 73);
+            context.moveTo(85, 50);
+            context.lineTo(65, 40);
 
-                // Создаём руки
-                ctx.moveTo(85, 50);    // Рисуем
-                ctx.lineTo(65, 40);    // левую руку
+            context.moveTo(85, 50);
+            context.lineTo(105, 40);
 
-                ctx.moveTo(85, 50);    // Рисуем
-                ctx.lineTo(105, 40);   // правую руку
+            context.moveTo(85, 73);
+            context.lineTo(65, 103);
 
-                // Создаём ноги
-                ctx.moveTo(85, 73);    // Рисуем
-                ctx.lineTo(65, 103);   // левую ногу
+            context.moveTo(85, 73);
+            context.lineTo(105, 103);
 
-                ctx.moveTo(85, 73);    // Рисуем
-                ctx.lineTo(105, 103);  // правую ногу
-
-                // Конец рисования нового пути ("проявление" рисунка на "холсте")
-                ctx.stroke();
+            context.stroke();
         </script>
     </body>
 </html>
