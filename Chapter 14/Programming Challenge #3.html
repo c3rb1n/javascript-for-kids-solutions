@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
             name="description"
             content='"Programming Challenge #3" task from Chapter 14 of the book "javascript for kids"'
@@ -12,66 +12,68 @@
     <body>
         <canvas id="canvas" width="500" height="300"></canvas>
         <script>
-            const circle = function (x, y, radius, fillCircle) {
-                ctx.beginPath();
+            const canvas = document.querySelector('#canvas');
+            const context = canvas.getContext('2d');
 
-                ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+            const {width} = canvas;
+            const {height} = canvas;
+
+            const balls = [];
+
+            const circle = function (x, y, radius, fillCircle) {
+                context.beginPath();
+
+                context.arc(x, y, radius, 0, Math.PI * 2, false);
 
                 if (fillCircle) {
-                    ctx.fill();
+                    context.fill();
                 } else {
-                    ctx.stroke();
+                    context.stroke();
                 }
             };
 
-            const Ball = function() {
-                this.x = 100;
-                this.y = 100;
-                this.xSpeed = 5 - Math.floor(Math.random() * 11);
-                this.ySpeed = 5 - Math.floor(Math.random() * 11);
-            };
-
-            Ball.prototype.draw = function() {
-                circle(this.x, this.y, 3, true);
-            };
-
-            Ball.prototype.move = function() {
-                this.x += this.xSpeed;
-                this.y += this.ySpeed;
-            };
-
-            Ball.prototype.checkCollision = function() {
-                if (this.x < 0 || this.x > width) {
-                    this.xSpeed = -this.xSpeed;
+            class Ball {
+                constructor() {
+                    this.x = 100;
+                    this.y = 100;
+                    this.xSpeed = 5 - Math.floor(Math.random() * 11);
+                    this.ySpeed = 5 - Math.floor(Math.random() * 11);
                 }
 
-                if (this.y < 0 || this.y > height) {
-                    this.ySpeed = -this.ySpeed;
+                draw() {
+                    circle(this.x, this.y, 3, true);
                 }
-            };
 
-            const canvas = document.getElementById('canvas');
-            const ctx = canvas.getContext('2d');
+                move() {
+                    this.x += this.xSpeed;
+                    this.y += this.ySpeed;
+                }
 
-            const width = canvas.width;
-            const height = canvas.height;
+                checkCollision() {
+                    if (this.x < 0 || this.x > width) {
+                        this.xSpeed = -this.xSpeed;
+                    }
 
-            const balls = [];                                   // Создаём пустой массив
+                    if (this.y < 0 || this.y > height) {
+                        this.ySpeed = -this.ySpeed;
+                    }
+                }
+            }
 
-            for (let i = 0; i < 10; i++) {                    //
-                balls.push(new Ball());                       // Добавляем в пустой массив balls 10 мячей
-            }                                                 //
+            for (let index = 0; index < 10; index++) {
+                balls.push(new Ball());
+            }
 
-            setInterval(function() {
-                ctx.clearRect(0, 0, width, height);
+            setInterval(function () {
+                context.clearRect(0, 0, width, height);
 
-                for (let i = 0; i < balls.length; i++) {      //
-                    balls[i].draw();                          // Используем цикл for
-                    balls[i].move();                          // для отрисовки, перемещения
-                    balls[i].checkCollision();                // и проверки столкновений каждого из мячей
-                }                                             //
+                for (const ball of balls) {
+                    ball.draw();
+                    ball.move();
+                    ball.checkCollision();
+                }
 
-                ctx.strokeRect(0, 0, width, height);
+                context.strokeRect(0, 0, width, height);
             }, 30);
         </script>
     </body>
