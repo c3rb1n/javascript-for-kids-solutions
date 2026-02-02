@@ -1,12 +1,9 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <meta
-            name="description"
-            content='"Try it! #2" task from Chapter 15 of the book "javascript for kids"'
-        />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content='"Try it! #2" task from Chapter 15 of the book "javascript for kids"' />
         <title>"Try it! #2" task from Chapter 15</title>
     </head>
     <body>
@@ -14,14 +11,14 @@
         <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
         <script>
             const keyNames = {
-                32: 'space',  // пробел
-                37: 'left',   // влево
-                38: 'up',     // вверх
-                39: 'right',  // вправо
-                40: 'down',   // вниз
-                16: 'shift',  // шифт
-                13: 'enter',  // ввод
-                18: 'alt'     // альт
+                32: 'space',
+                37: 'left',
+                38: 'up',
+                39: 'right',
+                40: 'down',
+                16: 'shift',
+                13: 'enter',
+                18: 'alt'
             };
 
             $('body').keydown(event => console.log(keyNames[event.keyCode]));
