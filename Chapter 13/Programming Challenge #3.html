@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
             name="description"
             content='"Programming Challenge #3" task from Chapter 13 of the book "javascript for kids"'
@@ -13,14 +13,14 @@
         <canvas id="canvas" width="200" height="200"></canvas>
         <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
         <script>
-            const circle = event => {
-                ctx.beginPath();
-                ctx.arc(event.offsetX, event.offsetY, 3, 0, Math.PI * 2, false);
-                ctx.fill()
-            }
+            const canvas = document.querySelector('#canvas');
+            const context = canvas.getContext('2d');
 
-            const canvas = document.getElementById('canvas');
-            const ctx = canvas.getContext('2d');
+            const circle = event => {
+                context.beginPath();
+                context.arc(event.offsetX, event.offsetY, 3, 0, Math.PI * 2, false);
+                context.fill();
+            };
 
             $('canvas').mousemove(circle);
         </script>

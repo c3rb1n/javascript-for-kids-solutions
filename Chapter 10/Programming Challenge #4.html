@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
             name="description"
             content='"Programming Challenge #4" task from Chapter 10 of the book "javascript for kids"'
@@ -20,32 +20,32 @@
 
             const headingMove = () => {
                 if (offsetY === 0 && offsetX < 200) {
-                    $("#heading").offset({left: offsetX, top: offsetY});
+                    $('#heading').offset({left: offsetX, top: offsetY});
                     offsetX++;
                 } else if (offsetY < 200 && offsetX === 200) {
-                    $("#heading").offset({left: offsetX, top: offsetY});
+                    $('#heading').offset({left: offsetX, top: offsetY});
                     offsetY++;
                 } else if (offsetY === 200 && offsetX > 0) {
-                    $("#heading").offset({left: offsetX, top: offsetY});
+                    $('#heading').offset({left: offsetX, top: offsetY});
                     offsetX--;
                 } else if (offsetY > 0 && offsetX === 0) {
-                    $("#heading").offset({left: offsetX, top: offsetY});
+                    $('#heading').offset({left: offsetX, top: offsetY});
                     offsetY--;
                 }
             };
 
             let intervalId = setInterval(headingMove, speed);
 
-            $("h1").click(event => {
+            $('h1').click(event => {
                 clearInterval(intervalId);
 
                 if (headingValue < 10) {
                     speed /= 2;
-                    $("h1").text(headingValue);
+                    $('h1').text(headingValue);
                     intervalId = setInterval(headingMove, speed);
                     headingValue++;
                 } else {
-                    $("h1").text("Вы победили!");
+                    $('h1').text('Вы победили!');
                 }
             });
         </script>

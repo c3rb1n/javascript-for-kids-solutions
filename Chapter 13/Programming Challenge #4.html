@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
             name="description"
             content='"Programming Challenge #4" task from Chapter 13 of the book "javascript for kids"'
@@ -28,39 +28,86 @@
                     'условие',
                     'цикл',
                     'переменная',
-                    'данные',
+                    'данные'
                 ];
 
                 return words[Math.floor(Math.random() * words.length)];
             };
 
+            const canvas = document.querySelector('#canvas');
+            const context = canvas.getContext('2d');
+
+            const word = pickWord();
+
+            let remainingLetters = word.length;
+            let triesCounter = 6;
+
             const setupAnswerArray = word => {
                 const answerArray = [];
 
-                for (let i = 0; i < word.length; i++) {
-                    answerArray[i] = '_';
+                for (let index = 0; index < word.length; index++) {
+                    answerArray[index] = '_';
                 }
 
                 return answerArray;
             };
 
             const showPlayerProgress = answerArray => alert(answerArray.join(' '));
-
             const getGuess = () => prompt('Угадайте букву, или нажмите Отмена для выхода из игры.');
+            const answerArray = setupAnswerArray(word);
+
+            const drawHangman = triesCounter => {
+                context.lineWidth = 3;
+                context.beginPath();
+
+                switch (triesCounter) {
+                    case 5: {
+                        context.strokeRect(250, 250, 20, 20);
+                        break;
+                    }
+                    case 4: {
+                        context.moveTo(260, 270);
+                        context.lineTo(260, 320);
+                        break;
+                    }
+                    case 3: {
+                        context.moveTo(260, 285);
+                        context.lineTo(235, 275);
+                        break;
+                    }
+                    case 2: {
+                        context.moveTo(260, 285);
+                        context.lineTo(285, 275);
+                        break;
+                    }
+                    case 1: {
+                        context.moveTo(260, 320);
+                        context.lineTo(240, 355);
+                        break;
+                    }
+                    case 0: {
+                        context.moveTo(260, 320);
+                        context.lineTo(280, 355);
+                        break;
+                    }
+                }
+
+                context.stroke();
+            };
 
             const updateGameState = (guess, word, answerArray) => {
                 let correctGuessesCounter = 0;
 
-                guess = guess.toLowerCase();
+                const lowerGuess = guess.toLowerCase();
 
-                for (let j = 0; j < word.length; j++) {
-                    if (word[j] === guess && answerArray[j] === '_') {
-                        answerArray[j] = guess;
+                for (let index = 0; index < word.length; index++) {
+                    if (word[index] === lowerGuess && answerArray[index] === '_') {
+                        answerArray[index] = lowerGuess;
                         correctGuessesCounter++;
-                    } else if (word[j] === guess && answerArray[j] !== '_') {
+                    } else if (word[index] === lowerGuess && answerArray[index] !== '_') {
                         alert('Вы уже отгадали эту букву.');
                         break;
-                    } else if (j === word.length - 1 && correctGuessesCounter === 0) {
+                    } else if (index === word.length - 1 && correctGuessesCounter === 0) {
                         alert('В загаданном слове нет такой буквы.');
                         triesCounter--;
                         drawHangman(triesCounter);
@@ -72,50 +119,8 @@
 
             const showAnswerAndCongratulatePlayer = answerArray => {
                 alert(answerArray.join(' '));
-                alert('Отлично! Было загадано слово ' + word + '.');
+                alert(`Отлично! Было загадано слово ${word}.`);
             };
-
-            // Функция, рисующая человечка
-            const drawHangman = triesCounter => {
-
-                // Задаём ширину линий
-                ctx.lineWidth = 3;
-
-                // Начало рисования нового пути
-                ctx.beginPath();
-
-                // Проверяем оставшееся количество попыток и в зависимости от этого:
-                if (triesCounter === 5) {
-                    ctx.strokeRect(250, 250, 20, 20); // 1) Рисуем голову
-                } else if (triesCounter === 4) {      //
-                    ctx.moveTo(260, 270);             // 2) Рисуем
-                    ctx.lineTo(260, 320);             //    туловище
-                } else if (triesCounter === 3) {      //
-                    ctx.moveTo(260, 285);             // 3) Рисуем
-                    ctx.lineTo(235, 275);             //    левую руку
-                } else if (triesCounter === 2) {      //
-                    ctx.moveTo(260, 285);             // 4) Рисуем
-                    ctx.lineTo(285, 275);             //    правую руку
-                } else if (triesCounter === 1) {      //
-                    ctx.moveTo(260, 320);             // 5) Рисуем
-                    ctx.lineTo(240, 355);             //    левую ногу
-                } else if (triesCounter === 0) {      //
-                    ctx.moveTo(260, 320);             // 6) Рисуем
-                    ctx.lineTo(280, 355);             //    правую ногу
-                }                                     //
-
-                // Конец рисования нового пути ("проявление" рисунка на "холсте")
-                ctx.stroke();
-            };
-
-            const canvas = document.getElementById('canvas');
-            const ctx = canvas.getContext('2d');
-
-            const word = pickWord();
-            const answerArray = setupAnswerArray(word);
-
-            let remainingLetters = word.length;
-            let triesCounter = 6;
 
             while (remainingLetters > 0 && triesCounter > 0) {
                 showPlayerProgress(answerArray);
@@ -124,12 +129,12 @@
 
                 if (guess === null) {
                     break;
-                } else if (guess.length !== 1) {
-                    alert('Пожалуйста, введите одиночную букву.');
-                } else {
+                } else if (guess.length === 1) {
                     const correctGuesses = updateGameState(guess, word, answerArray);
 
                     remainingLetters -= correctGuesses;
+                } else {
+                    alert('Пожалуйста, введите одиночную букву.');
                 }
             }
 

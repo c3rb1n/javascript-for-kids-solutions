@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
             name="description"
             content='"Programming Challenge #2" task from Chapter 15 of the book "javascript for kids"'
@@ -13,90 +13,115 @@
         <canvas id="canvas" width="400" height="400"></canvas>
         <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
         <script>
-            const circle = function (x, y, radius, fillCircle) {
-                ctx.beginPath();
-                ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+            const canvas = document.querySelector('#canvas');
+            const context = canvas.getContext('2d');
 
-                if (fillCircle) {
-                    ctx.fill();
-                } else {
-                    ctx.stroke();
-                }
-            };
-
-            const Ball = function() {
-                this.x = width / 2;
-                this.y = height / 2;
-
-                // Новое свойство speed
-                this.speed = 5;
-            };
-
-            // Изменённый метод move
-            Ball.prototype.move = function() {
-                if (startDirection === 'up') {           //
-                    this.x += 0;                         //
-                    this.y -= this.speed;                //
-                } else if (startDirection === 'down') {  //
-                    this.x += 0;                         //
-                    this.y += this.speed;                //
-                } else if (startDirection === 'left') {  // Установка направления
-                    this.x -= this.speed;                // движения мяча, в зависимости от
-                    this.y += 0;                         // переменной startDirection
-                } else if (startDirection === 'right') { //
-                    this.x += this.speed;                //
-                    this.y += 0;                         //
-                } else if (startDirection === 'stop') {  //
-                    this.x += 0;                         //
-                    this.y += 0;                         //
-                }                                        //
-
-                if (this.x < 0) {                        //
-                    startDirection = 'right';            //
-                } else if (this.x > width) {             //
-                    startDirection = 'left';             // Код, заставляющий отскакивать
-                } else if (this.y < 0) {                 // мяч от границ при столкновении
-                    startDirection = 'down';             //
-                } else if (this.y > height) {            //
-                    startDirection = 'up';               //
-                }                                        //
-            };
-
-            Ball.prototype.draw = function() {
-                circle(this.x, this.y, 10, true);
-            };
-
-            // Задаём направление движения мяча по строке с названием действия
-            Ball.prototype.setDirection = function(direction) {
-                if (direction === 'up') {
-                    startDirection = 'up';
-                } else if (direction === 'down') {
-                    startDirection = 'down';
-                } else if (direction === 'left') {
-                    startDirection = 'left';
-                } else if (direction === 'right') {
-                    startDirection = 'right';
-                } else if (direction === 'stop') {
-                    startDirection = 'stop';
-                }
-            };
-
-            // Задаём скорость мяча по цифре скорости
-            Ball.prototype.setSpeed = function(speed) {
-                if (speed !== undefined) {
-                    this.speed = +speed;
-                }
-            };
-
-            const canvas = document.getElementById('canvas');
-            const ctx = canvas.getContext('2d');
-
-            const width = canvas.width;
-            const height = canvas.height;
-
-            const ball = new Ball();
+            const {width} = canvas;
+            const {height} = canvas;
 
             let startDirection = 'right';
+
+            const circle = function (x, y, radius, fillCircle) {
+                context.beginPath();
+                context.arc(x, y, radius, 0, Math.PI * 2, false);
+
+                if (fillCircle) {
+                    context.fill();
+                } else {
+                    context.stroke();
+                }
+            };
+
+            class Ball {
+                constructor() {
+                    this.x = width / 2;
+                    this.y = height / 2;
+                    this.speed = 5;
+                }
+
+                move() {
+                    switch (startDirection) {
+                        case 'up': {
+                            this.x += 0;
+                            this.y -= this.speed;
+
+                            break;
+                        }
+                        case 'down': {
+                            this.x += 0;
+                            this.y += this.speed;
+
+                            break;
+                        }
+                        case 'left': {
+                            this.x -= this.speed;
+                            this.y += 0;
+
+                            break;
+                        }
+                        case 'right': {
+                            this.x += this.speed;
+                            this.y += 0;
+
+                            break;
+                        }
+                        case 'stop': {
+                            this.x += 0;
+                            this.y += 0;
+                        }
+                    }
+
+                    if (this.x < 0) {
+                        startDirection = 'right';
+                    } else if (this.x > width) {
+                        startDirection = 'left';
+                    } else if (this.y < 0) {
+                        startDirection = 'down';
+                    } else if (this.y > height) {
+                        startDirection = 'up';
+                    }
+                }
+
+                draw() {
+                    circle(this.x, this.y, 10, true);
+                }
+
+                setDirection(direction) {
+                    switch (direction) {
+                        case 'up': {
+                            startDirection = 'up';
+
+                            break;
+                        }
+                        case 'down': {
+                            startDirection = 'down';
+
+                            break;
+                        }
+                        case 'left': {
+                            startDirection = 'left';
+
+                            break;
+                        }
+                        case 'right': {
+                            startDirection = 'right';
+
+                            break;
+                        }
+                        case 'stop': {
+                            startDirection = 'stop';
+                        }
+                    }
+                }
+
+                setSpeed(speed) {
+                    if (speed !== undefined) {
+                        this.speed = +speed;
+                    }
+                }
+            }
+
+            const ball = new Ball();
 
             const keyActions = {
                 32: 'stop',
@@ -106,7 +131,6 @@
                 40: 'down'
             };
 
-            // Объект для перевода кодов клавиш в цифру скорости
             const speeds = {
                 49: '1',
                 50: '2',
@@ -119,23 +143,19 @@
                 57: '9'
             };
 
-            $('body').keydown(function(event) {
+            $('body').keydown(function (event) {
                 const direction = keyActions[event.keyCode];
-
-                // Присваиваем цифру скорости переменной speed
                 const speed = speeds[event.keyCode];
 
                 ball.setDirection(direction);
-
-                // Вызываем метод setSpeed
                 ball.setSpeed(speed);
             });
 
-            setInterval(function() {
-                ctx.clearRect(0, 0, width, height);
+            setInterval(function () {
+                context.clearRect(0, 0, width, height);
                 ball.draw();
                 ball.move();
-                ctx.strokeRect(0, 0, width, height);
+                context.strokeRect(0, 0, width, height);
             }, 30);
         </script>
     </body>

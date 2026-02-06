@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
             name="description"
             content='"Programming Challenge #1" task from Chapter 9 of the book "javascript for kids"'
@@ -15,18 +15,12 @@
         <script>
             const friends = ['Виталий', 'Сергей', 'Святослав'];
 
-            // Для каждого имени создаём по одному элементу "p"
-            friends.forEach((friend, index) => {
+            friends.forEach(friend => {
                 $('body').append(`<p>${friend}</p>`);
             });
 
-            // Изменение текста элемента "h1"
             $('h1').text('Мои друзья');
-
-            // Использование методов hide и fadeIn, чтобы имена плавно возникали на экране
             $(`p`).hide(0).fadeIn(2000);
-
-            // Добавление после каждого имени слова "лучший!"
             $(`p`).append(' лучший!');
         </script>
     </body>

@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
             name="description"
             content='"Programming Challenge #4" task from Chapter 14 of the book "javascript for kids"'
@@ -12,80 +12,75 @@
     <body>
         <canvas id="canvas" width="500" height="300"></canvas>
         <script>
-            const circle = function (x, y, radius, fillCircle, color) {
-                // Задаём цвет мячика
-                ctx.fillStyle = color;
-                ctx.beginPath();
+            const canvas = document.querySelector('#canvas');
+            const context = canvas.getContext('2d');
 
-                ctx.arc(x, y, radius, 0, Math.PI * 2, false);
-
-                if (fillCircle) {
-                    ctx.fill();
-                } else {
-                    ctx.stroke();
-                }
-            };
-
-            const pickRandomColor = function(colors) {
-                // Функция, выбирающая случайный цвет мячика
-                return colors[Math.floor(Math.random() * colors.length)];
-            };
-
-            const Ball = function() {
-                this.x = 100;
-                this.y = 100;
-                this.xSpeed = 5 - Math.floor(Math.random() * 11);
-                this.ySpeed = 5 - Math.floor(Math.random() * 11);
-                // Новое свойство color, содержащее случайный цвет, возвращённый функцией pickRandomColor
-                this.color = pickRandomColor(colors);
-            };
-
-            Ball.prototype.draw = function() {
-                /*
-                    Использование свойства color каждого отдельного мячика
-                    в качестве аргумента функции circle в методе draw
-                */
-                circle(this.x, this.y, 3, true, this.color);
-            };
-
-            Ball.prototype.move = function() {
-                this.x += this.xSpeed;
-                this.y += this.ySpeed;
-            };
-
-            Ball.prototype.checkCollision = function() {
-                if (this.x < 0 || this.x > width) {
-                    this.xSpeed = -this.xSpeed;
-                }
-
-                if (this.y < 0 || this.y > height) {
-                    this.ySpeed = -this.ySpeed;
-                }
-            };
-
-            const canvas = document.getElementById('canvas');
-            const ctx = canvas.getContext('2d');
-
-            const width = canvas.width;
-            const height = canvas.height;
+            const {width} = canvas;
+            const {height} = canvas;
 
             const balls = [];
             const colors = ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Purple'];
 
-            for (let i = 0; i < 10; i++) {
+            const circle = function (x, y, radius, fillCircle, color) {
+                context.fillStyle = color;
+                context.beginPath();
+
+                context.arc(x, y, radius, 0, Math.PI * 2, false);
+
+                if (fillCircle) {
+                    context.fill();
+                } else {
+                    context.stroke();
+                }
+            };
+
+            const pickRandomColor = function (colors) {
+                return colors[Math.floor(Math.random() * colors.length)];
+            };
+
+            class Ball {
+                constructor() {
+                    this.x = 100;
+                    this.y = 100;
+                    this.xSpeed = 5 - Math.floor(Math.random() * 11);
+                    this.ySpeed = 5 - Math.floor(Math.random() * 11);
+                    this.color = pickRandomColor(colors);
+                }
+
+                draw() {
+                    circle(this.x, this.y, 3, true, this.color);
+                }
+
+                move() {
+                    this.x += this.xSpeed;
+                    this.y += this.ySpeed;
+                }
+
+                checkCollision() {
+                    if (this.x < 0 || this.x > width) {
+                        this.xSpeed = -this.xSpeed;
+                    }
+
+                    if (this.y < 0 || this.y > height) {
+                        this.ySpeed = -this.ySpeed;
+                    }
+                }
+            }
+
+            for (let index = 0; index < 10; index++) {
                 balls.push(new Ball());
             }
 
-            setInterval(function() {
-                ctx.clearRect(0, 0, width, height);
+            setInterval(function () {
+                context.clearRect(0, 0, width, height);
 
-                for (let i = 0; i < balls.length; i++) {
-                    balls[i].draw();
-                    balls[i].move();
-                    balls[i].checkCollision();
+                for (const ball of balls) {
+                    ball.draw();
+                    ball.move();
+                    ball.checkCollision();
                 }
 
-                ctx.strokeRect(0, 0, width, height);
+                context.strokeRect(0, 0, width, height);
             }, 30);
         </script>
     </body>
