@@ -17,7 +17,6 @@ const randomAdjectives2 = ['глупая', 'гнилая', 'мелкая', 'вя
 const randomAnimalBodyParts2 = ['лапа', 'шерсть', 'морда'];
 const randomAnimals2 = ['кота', 'волка', 'льва', 'жирафа', 'лося'];
 
-// Выбор случайной части тела человека из массива randomHumanBodyParts2:
 const randomHumanBodyPart2 = randomHumanBodyParts2[Math.floor(Math.random() * randomHumanBodyParts2.length)];
 const randomAdjective2 = randomAdjectives2[Math.floor(Math.random() * randomAdjectives2.length)];
 const randomAnimalBodyPart2 = randomAnimalBodyParts2[Math.floor(Math.random() * randomAnimalBodyParts2.length)];
