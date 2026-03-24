@@ -4,4 +4,4 @@ const myCrazyObject = {
     'random animal': 'Банановая акула'
 };
 
-myCrazyObject['some array'][2].number; // 123
+myCrazyObject['some array'][2].number;
